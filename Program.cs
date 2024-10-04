@@ -6,203 +6,101 @@ class Program
     {
         Console.WriteLine("Добро пожаловать в текстовый квест!");
         Console.WriteLine("Вы находитесь в таинственном лесу.");
-
-        // Проверка готовности начать квест
-        Console.WriteLine("Вы готовы начать квест? (да/нет)");
+        Console.WriteLine("Вы готовы начать квест?");
         string answer = Console.ReadLine().ToLower();
-
-        while (answer != "да" && answer != "нет")
-        {
-            Console.WriteLine("Пожалуйста, ответьте 'да' или 'нет'.");
-            answer = Console.ReadLine().ToLower();
-        }
-
         if (answer == "да")
         {
             Console.WriteLine("Отлично! Приступим к квесту");
         }
-        else
+        else if (answer == "нет")
         {
             Console.WriteLine("Жаль, будем вас ждать");
-            return;  // Завершаем игру, если ответ "нет"
+            return;
         }
 
-        int lives = 3;
-
-        Console.WriteLine("На вашем пути появляется огромный волк.");
-        Console.WriteLine("'Выбери свою судьбу: Математика, Физика или Информатика. Твое решение определит, какой вопрос ты получишь!'");
-
-        // Выбор предмета с проверкой корректности ввода
+        Console.WriteLine("На вашем пути, перед тем как погрузиться в тёмную гущу леса, появляется огромный волк. Его глаза сверкают в темноте, и он преграждает вам дорогу.");
+        Console.WriteLine("Волк рычит: 'Я не пропущу тебя, пока не докажешь свои знания. У тебя будет всего один шанс ответить на мой вопрос.'");
+        Console.WriteLine("С рыком он добавляет: 'Выбери свою судьбу: Математика, Физика или Информатика. Твое решение определит, какой вопрос ты получишь!'");
         Console.Write("Что ты выберешь? ");
-        string choice = Console.ReadLine().ToLower();
 
-        while (choice != "математика" && choice != "физика" && choice != "информатика")
+        string choise = Console.ReadLine().ToLower();
+
+        switch (choise)
         {
-            Console.WriteLine("Пожалуйста, выберите один из предметов: Математика, Физика или Информатика.");
-            choice = Console.ReadLine().ToLower();
-        }
-
-        // Флаг для отслеживания правильности ответов
-        bool firstQuestionAnswered = false;
-
-        while (!firstQuestionAnswered && lives > 0)
-        {
-            switch (choice)
-            {
-                case "математика":
-                    Console.WriteLine("Вы выбрали Математику. Вопрос: Сколько будет 5 + 5(-1)?");
-                    string mathAnswer = Console.ReadLine();
-
-                    // Проверка, что введено число
-                    while (!int.TryParse(mathAnswer, out _))
-                    {
-                        Console.WriteLine("Пожалуйста, введите числовой ответ.");
-                        mathAnswer = Console.ReadLine();
-                    }
-
-                    if (mathAnswer == "0")
-                    {
-                        Console.WriteLine("Верно!");
-                        firstQuestionAnswered = true;
-                    }
-                    else
-                    {
-                        lives--;
-                        Console.WriteLine($"Неправильно, ответ 0. Ваши жизни: {lives}");
-                        if (lives > 0)
-                        {
-                            Console.WriteLine("Попробуйте снова.");
-                        }
-                    }
-                    break;
-
-                case "информатика":
-                    Console.WriteLine("Вы выбрали Информатику. Вопрос: Какое свойство степени числа 2 делает его результат всегда представимым в двоичной системе как числа вида 1, 10, 100, 1000?");
-                    Console.WriteLine("1. Число 2 в любой степени всегда равно 10.");
-                    Console.WriteLine("2. Степени числа 2 всегда равны целым числам.");
-                    Console.WriteLine("3. Степени числа 2 в двоичной системе всегда представляются как 1 с нулями справа.");
-                    Console.WriteLine("4. Степени числа 2 всегда кратны десяти.");
-                    string informaticsAnswer = Console.ReadLine();
-
-                    // Проверка, что введен номер ответа от 1 до 4
-                    while (informaticsAnswer != "1" && informaticsAnswer != "2" && informaticsAnswer != "3" && informaticsAnswer != "4")
-                    {
-                        Console.WriteLine("Пожалуйста, введите номер ответа от 1 до 4.");
-                        informaticsAnswer = Console.ReadLine();
-                    }
-
-                    if (informaticsAnswer == "3")
-                    {
-                        Console.WriteLine("Правильно!");
-                        firstQuestionAnswered = true;
-                    }
-                    else
-                    {
-                        lives--;
-                        Console.WriteLine($"Неправильно, правильный ответ: 3. Ваши жизни: {lives}");
-                        if (lives > 0)
-                        {
-                            Console.WriteLine("Попробуйте снова.");
-                        }
-                    }
-                    break;
-
-                case "физика":
-                    Console.WriteLine("Вы выбрали Физику. Вопрос: Как называется сила, которая тянет объекты к земле?");
-                    string physicsAnswer = Console.ReadLine().ToLower();
-
-                    if (physicsAnswer == "гравитация" || physicsAnswer == "сила тяжести")
-                    {
-                        Console.WriteLine("Правильно!");
-                        firstQuestionAnswered = true;
-                    }
-                    else
-                    {
-                        lives--;
-                        Console.WriteLine($"Неправильно, ответ — гравитация. Ваши жизни: {lives}");
-                        if (lives > 0)
-                        {
-                            Console.WriteLine("Попробуйте снова.");
-                        }
-                    }
-                    break;
-            }
-
-            // Проверка, нужно ли продолжать задавать вопрос
-            if (!firstQuestionAnswered && lives > 0)
-            {
-                Console.WriteLine("Давайте попробуем еще раз.");
-            }
-        }
-
-        if (lives <= 0)
-        {
-            Console.WriteLine("К сожалению, попытки закончились. Вы не прошли лес.");
-            return;  // Игра заканчивается, если закончились жизни
-        }
-
-        // Лесник
-        Console.WriteLine("Вас встречает лесник.");
-        Console.WriteLine("'Я не люблю незваных гостей,' — говорит он, — 'особенно тех, кто осмеливается бродить по моим лесам без приглашения.'");
-        Console.WriteLine("Лесник хитро улыбается и задаёт вам задачу: 'Сколько деревьев будет в моём лесу через 5 лет?'");
-
-        // Параметры задачи
-        int initialTrees = 100;
-        int yearsToPass = 5;
-        int treesPlantedPerYear = 10;
-        int treesLostPerYear = 5;
-
-        int correctAnswer = initialTrees + (treesPlantedPerYear - treesLostPerYear) * yearsToPass;
-
-        bool secondQuestionAnswered = false;
-
-        while (!secondQuestionAnswered && lives > 0)
-        {
-            // Ввод ответа
-            int parsedAnswer = 0;
-            bool isValidInput = false;
-
-            while (!isValidInput)
-            {
-                Console.Write("Введите ваш ответ (целое число): ");
-                string userAnswer = Console.ReadLine();
-
-                if (int.TryParse(userAnswer, out parsedAnswer))
+            case "математика":
+                Console.WriteLine("Вы выбрали Математику. Вопрос: Сколько будет 5 + 5(-1)?");
+                string mathAnswer = Console.ReadLine();
+                if (mathAnswer == "0")
                 {
-                    isValidInput = true;  // Выход из цикла
+                    Console.WriteLine("Верно!");
                 }
                 else
                 {
-                    Console.WriteLine("Ошибка! Пожалуйста, введите целое число.");
+                    Console.WriteLine("Неправильно, ответ 0.");
                 }
-            }
+                break;
 
-            // Проверка ответа
-            if (parsedAnswer == correctAnswer)
-            {
-                Console.WriteLine($"Лесник: 'Хм, а ты неплох. Правильно, через 5 лет будет {correctAnswer} деревьев.'");
-                Console.WriteLine("'Проходи дальше.'");
-                secondQuestionAnswered = true;
-            }
-            else
-            {
-                lives--;
-                Console.WriteLine($"Лесник: 'Неправильно. Правильный ответ: {correctAnswer} деревьев.'");
-                Console.WriteLine($"Ваши жизни: {lives}");
-                if (lives > 0)
+            case "информатика":
+                Console.WriteLine("Вы выбрали Информатику. Вопрос: Какое свойство степени числа 2 делает его результат всегда представимым в двоичной системе как числа вида 1, 10, 100, 1000?");
+                Console.WriteLine("1. Число 2 в любой степени всегда равно 10.");
+                Console.WriteLine("2. Степени числа 2 всегда равны целым числам.");
+                Console.WriteLine("3. Степени числа 2 в двоичной системе всегда представляются как 1 с нулями справа.");
+                Console.WriteLine("4. Степени числа 2 всегда кратны десяти.");
+                string informaticsAnswer = Console.ReadLine();
+
+                if (informaticsAnswer == "3")
                 {
-                    Console.WriteLine("'Попробуй снова!'");
+                    Console.WriteLine("Правильно!");
                 }
-            }
+                else
+                {
+                    Console.WriteLine("Неправильно, правильный ответ: 3.");
+                }
+                break;
+
+            case "физика":
+                Console.WriteLine("Вы выбрали Физику. Вопрос: Как называется сила, которая тянет объекты к земле?");
+                string physicsAnswer = Console.ReadLine();
+                if (physicsAnswer.ToLower() == "гравитация")
+                {
+                    Console.WriteLine("Правильно!");
+                }
+                else
+                {
+                    Console.WriteLine("Неправильно, ответ — гравитация.");
+                }
+                break;
+            default:
+                Console.WriteLine("Вы выбрали неизвестный предмет.");
+                break;
         }
 
-        if (lives <= 0)
+        Console.WriteLine("Волк медленно отступает, недовольно рыча:");
+        Console.WriteLine("'Хм, ты справился... Я так и знал, что мне не удастся съесть тебя.'");
+        Console.WriteLine("'Проходи! Но знай, впереди тебя ждёт не менее суровое испытание — лесник. Он не такой снисходительный, как я!' Волк провожает вас взглядом, а вы осторожно продолжаете путь вглубь леса.");
+
+        Console.WriteLine("Вас встречает лесник. Его хитрый взгляд не предвещает ничего хорошего.");
+        Console.WriteLine("'Я не люблю незваных гостей,' — говорит он с недовольной ухмылкой, — 'особенно тех, кто осмеливается бродить по моим лесам без приглашения.'");
+        Console.WriteLine("Он оглядывает вас с головы до ног: 'Что ж, если ты дошёл до меня, значит, волк был слишком мягок с тобой... Но посмотрим, сможешь ли ты пройти дальше.'");
+
+        Console.WriteLine("'Я хочу, чтобы ты не просто ответил на вопрос, а немного подумал. Это будет проверка твоих логических способностей. Вот мой вопрос:'");
+        Console.WriteLine("Перед тобой три сундука. Один из них содержит сокровища, а два других — пусты. На каждом сундуке есть надпись:");
+        Console.WriteLine("1. Первый сундук: 'Сокровища находятся не в этом сундуке.'");
+        Console.WriteLine("2. Второй сундук: 'Сокровища находятся в этом сундуке.'");
+        Console.WriteLine("3. Третий сундук: 'Сокровища находятся не во втором сундуке.'");
+        Console.WriteLine("Только одна из этих надписей правдива. Какой сундук содержит сокровища?");
+        Console.Write("Введите номер сундука (1, 2 или 3): ");
+        string chestAnswer = Console.ReadLine();
+
+        if (chestAnswer == "1")
         {
-            Console.WriteLine("Ваши попытки закончились. Игра окончена.");
-            return;  // Завершение игры, если больше нет жизней
+            Console.WriteLine("Правильно! Только надпись на первом сундуке может быть правдивой, так как она единственная не противоречит остальным.");
+        }
+        else
+        {
+            Console.WriteLine("Неправильно. Правильный ответ: первый сундук. Только его надпись может быть правдивой, так как она не противоречит остальным.");
         }
 
-        // Завершение игры
-        Console.WriteLine("Поздравляем! Вы успешно завершили квест.");
+        Console.WriteLine("Лесник хмыкает и смотрит на тебя пристально: 'Ты действительно умеешь думать, и это впечатляет. Проходи дальше, но впереди ждут еще более трудные испытания.'");
     }
 }
